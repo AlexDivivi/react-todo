@@ -1,10 +1,25 @@
 import React, { Component } from 'react'
 import Todo from './Todo'
+import Input from './Input'
 import './App.css'
 
 class App extends Component {
   state = {
+    inpValue: '',
     todos: []
+  }
+
+  handeInput = event => {
+    if (event.key === 'Enter') {
+      const newEntry = [
+        { text: event.target.value, done: false },
+        ...this.state.todos
+      ]
+      this.setState({
+        todos: newEntry
+      })
+      event.target.value = ''
+    }
   }
 
   toggleDone = keyV => {
@@ -34,6 +49,7 @@ class App extends Component {
   render() {
     return (
       <section>
+        <Input handeInput={this.handeInput} />
         <ul>{this.renderTodos()}</ul>
       </section>
     )
