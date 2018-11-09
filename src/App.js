@@ -5,7 +5,6 @@ import './App.css'
 
 class App extends Component {
   state = {
-    inpValue: '',
     todos: []
   }
 
@@ -34,6 +33,14 @@ class App extends Component {
     })
   }
 
+  onDelete = keyV => {
+    const { todos } = this.state
+    const delTodo = [...todos.slice(0, keyV), ...todos.slice(keyV + 1)]
+    this.setState({
+      todos: delTodo
+    })
+  }
+
   renderTodos() {
     return this.state.todos.map((todo, index) => (
       <Todo
@@ -42,6 +49,7 @@ class App extends Component {
         text={todo.text}
         done={todo.done}
         toggleDone={this.toggleDone}
+        onDelete={this.onDelete}
       />
     ))
   }
