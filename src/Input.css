@@ -5,6 +5,7 @@ input {
   background-color: whitesmoke;
   border: 0;
   box-shadow: 3px 3px 10px hotpink;
+  margin-top: 15px;
 }
 
 input::placeholder {

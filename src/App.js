@@ -6,7 +6,20 @@ import './App.css'
 
 class App extends Component {
   state = {
-    todos: []
+    todos: [
+      {
+        text: 'sending link to Jerry',
+        done: true
+      },
+      {
+        text: 'Doing Jerry like style w/ hotpink',
+        done: true
+      },
+      {
+        text: 'Building ToDo List',
+        done: true
+      }
+    ]
   }
 
   handeInput = event => {

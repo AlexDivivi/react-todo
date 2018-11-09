@@ -2,6 +2,6 @@ import React, { Component } from 'react'
 
 export default class Counter extends Component {
   render() {
-    return <div>Done ToDo's: {this.props.num}</div>
+    return <div>Done: {this.props.num}</div>
   }
 }

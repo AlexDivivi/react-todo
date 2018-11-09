@@ -6,7 +6,7 @@ export default class Input extends Component {
     return (
       <input
         type="text"
-        placeholder="Enter ToDo"
+        placeholder="Add ToDo"
         onKeyUp={evt => {
           this.props.handeInput(evt)
         }}
