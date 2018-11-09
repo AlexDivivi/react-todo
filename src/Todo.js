@@ -5,7 +5,7 @@ export default class Todo extends Component {
   render() {
     const { text, done, keyV, toggleDone, onDelete } = this.props
     return (
-      <div>
+      <div className="Todo">
         <li
           onClick={() => toggleDone(keyV)}
           className={done ? 'linethrough' : ''}
@@ -13,7 +13,7 @@ export default class Todo extends Component {
           {text}
         </li>
         <button className="deletebtn" onClick={() => onDelete(keyV)}>
-          x
+          X
         </button>
       </div>
     )

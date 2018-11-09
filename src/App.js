@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Todo from './Todo'
 import Input from './Input'
+import Counter from './Counter'
 import './App.css'
 
 class App extends Component {
@@ -25,7 +26,7 @@ class App extends Component {
     const { todos } = this.state
     const newTodos = [
       ...todos.slice(0, keyV),
-      { ...todos[keyV], done: true },
+      { ...todos[keyV], done: !todos[keyV].done },
       ...todos.slice(keyV + 1)
     ]
     this.setState({
@@ -54,12 +55,22 @@ class App extends Component {
     ))
   }
 
+  countStuff() {
+    return this.state.todos.filter(item => item.done).length
+  }
+
   render() {
     return (
-      <section>
-        <Input handeInput={this.handeInput} />
-        <ul>{this.renderTodos()}</ul>
-      </section>
+      <React.Fragment>
+        <section>
+          <h1>ToDo - List</h1>
+          <Counter num={this.countStuff()} />
+          <ul>{this.renderTodos()}</ul>
+        </section>
+        <footer>
+          <Input handeInput={this.handeInput} />
+        </footer>
+      </React.Fragment>
     )
   }
 }
