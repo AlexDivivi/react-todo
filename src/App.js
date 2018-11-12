@@ -6,7 +6,7 @@ import './App.css'
 
 class App extends Component {
   state = {
-    todos: []
+    todos: this.load()
   }
 
   render() {
@@ -16,6 +16,7 @@ class App extends Component {
           <h1>ToDo - List</h1>
           <Counter num={this.countStuff()} />
           <ul>{this.renderTodos()}</ul>
+          {this.save()}
         </section>
         <footer>
           <Input handeInput={this.handeInput} />
@@ -72,6 +73,18 @@ class App extends Component {
 
   countStuff() {
     return this.state.todos.filter(item => item.done).length
+  }
+
+  save() {
+    localStorage.setItem('todo-app--todos', JSON.stringify(this.state.todos))
+  }
+
+  load() {
+    try {
+      return JSON.parse(localStorage.getItem('todo-app--todos')) || []
+    } catch (err) {
+      return []
+    }
   }
 }
 
