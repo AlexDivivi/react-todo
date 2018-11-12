@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import './Counter.css'
 
 export default class Counter extends Component {
   render() {
-    return <div>Done: {this.props.num}</div>
+    return <div className="Counter">Done: {this.props.num}</div>
   }
 }

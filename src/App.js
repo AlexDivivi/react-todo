@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import uid from 'uid'
+
 import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
@@ -10,13 +12,14 @@ class App extends Component {
   }
 
   render() {
+    this.save()
     return (
       <React.Fragment>
         <section>
           <h1>ToDo - List</h1>
+          <ul>{this.renderOpenTodos()}</ul>
           <Counter num={this.countStuff()} />
-          <ul>{this.renderTodos()}</ul>
-          {this.save()}
+          <ul>{this.renderDoneTodos()}</ul>
         </section>
         <footer>
           <Input handeInput={this.handeInput} />
@@ -28,7 +31,7 @@ class App extends Component {
   handeInput = event => {
     if (event.key === 'Enter') {
       const newEntry = [
-        { text: event.target.value, done: false },
+        { text: event.target.value, done: false, id: uid() },
         ...this.state.todos
       ]
       this.setState({
@@ -38,37 +41,47 @@ class App extends Component {
     }
   }
 
-  toggleDone = keyV => {
+  toggleDone = id => {
     const { todos } = this.state
+    const index = todos.findIndex(todo => todo.id === id)
     const newTodos = [
-      ...todos.slice(0, keyV),
-      { ...todos[keyV], done: !todos[keyV].done },
-      ...todos.slice(keyV + 1)
+      ...todos.slice(0, index),
+      { ...todos[index], done: !todos[index].done },
+      ...todos.slice(index + 1)
     ]
     this.setState({
       todos: newTodos
     })
   }
 
-  onDelete = keyV => {
+  onDelete = id => {
     const { todos } = this.state
-    const delTodo = [...todos.slice(0, keyV), ...todos.slice(keyV + 1)]
+    const index = todos.findIndex(todo => todo.id === id)
+    const delTodo = [...todos.slice(0, index), ...todos.slice(index + 1)]
     this.setState({
       todos: delTodo
     })
   }
 
-  renderTodos() {
-    return this.state.todos.map((todo, index) => (
+  renderOpenTodos() {
+    return this.state.todos.filter(item => !item.done).map(this.renderTodo())
+  }
+
+  renderDoneTodos() {
+    return this.state.todos.filter(item => item.done).map(this.renderTodo())
+  }
+
+  renderTodo() {
+    return todo => (
       <Todo
-        key={Math.random()}
-        keyV={index}
+        key={todo.id}
+        id={todo.id}
         text={todo.text}
         done={todo.done}
         toggleDone={this.toggleDone}
         onDelete={this.onDelete}
       />
-    ))
+    )
   }
 
   countStuff() {
