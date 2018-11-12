@@ -6,20 +6,22 @@ import './App.css'
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        text: 'sending link to Jerry',
-        done: true
-      },
-      {
-        text: 'Doing Jerry like style w/ hotpink',
-        done: true
-      },
-      {
-        text: 'Building ToDo List',
-        done: true
-      }
-    ]
+    todos: []
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <section>
+          <h1>ToDo - List</h1>
+          <Counter num={this.countStuff()} />
+          <ul>{this.renderTodos()}</ul>
+        </section>
+        <footer>
+          <Input handeInput={this.handeInput} />
+        </footer>
+      </React.Fragment>
+    )
   }
 
   handeInput = event => {
@@ -70,21 +72,6 @@ class App extends Component {
 
   countStuff() {
     return this.state.todos.filter(item => item.done).length
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <section>
-          <h1>ToDo - List</h1>
-          <Counter num={this.countStuff()} />
-          <ul>{this.renderTodos()}</ul>
-        </section>
-        <footer>
-          <Input handeInput={this.handeInput} />
-        </footer>
-      </React.Fragment>
-    )
   }
 }
 

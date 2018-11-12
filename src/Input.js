@@ -8,7 +8,7 @@ export default class Input extends Component {
         type="text"
         placeholder="Add ToDo"
         onKeyUp={evt => {
-          this.props.handeInput(evt)
+          evt.target.value && this.props.handeInput(evt)
         }}
       />
     )
