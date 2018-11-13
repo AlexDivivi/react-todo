@@ -1,10 +1,25 @@
 import React, { Component } from 'react'
 import uid from 'uid'
+import styled from 'styled-components'
 
 import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
-import './App.css'
+
+const Wrapfoot = styled.footer`
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+`
+
+const Ul = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: ${props => props.font || 28}px;
+`
 
 class App extends Component {
   state = {
@@ -17,13 +32,13 @@ class App extends Component {
       <React.Fragment>
         <section>
           <h1>ToDo - List</h1>
-          <ul>{this.renderOpenTodos()}</ul>
+          <Ul font={28}>{this.renderOpenTodos()}</Ul>
           <Counter num={this.countStuff()} />
-          <ul>{this.renderDoneTodos()}</ul>
+          <Ul font={28}>{this.renderDoneTodos()}</Ul>
         </section>
-        <footer>
+        <Wrapfoot>
           <Input handeInput={this.handeInput} />
-        </footer>
+        </Wrapfoot>
       </React.Fragment>
     )
   }
