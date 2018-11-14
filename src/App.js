@@ -35,15 +35,16 @@ class App extends Component {
 
   render() {
     this.save()
+    const { isDefault } = this.state.toggleButton
     return (
       <React.Fragment>
         <h1>ToDo - List</h1>
         <Ul>{this.renderOpenTodos()}</Ul>
         <ToggleButton
           data={this.state.toggleButton}
-          doClick={this.handleTglBtnClick}
+          doClick={this.handleToggleButtonClick}
         />
-        {this.state.toggleButton.isDefault && (
+        {isDefault && (
           <React.Fragment>
             <Counter num={this.countStuff()} />{' '}
             <WrapperProgress>
@@ -61,11 +62,10 @@ class App extends Component {
     )
   }
 
-  handleTglBtnClick = () => {
+  handleToggleButtonClick = () => {
     const { toggleButton } = this.state
     const newButton = {
-      defaultText: toggleButton.defaultText,
-      altText: toggleButton.altText,
+      ...toggleButton,
       isDefault: !toggleButton.isDefault
     }
 
