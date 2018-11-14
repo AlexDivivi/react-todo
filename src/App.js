@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
+import ToggleButton from './ToggleButton'
+import { WrapperProgress, ProgressBar } from './Progressbar'
 
 const Wrapfoot = styled.footer`
   display: flex;
@@ -18,59 +20,58 @@ const Ul = styled.ul`
   padding: 0;
   padding-left: 30px;
   padding-right: 30px;
-  font-size: ${props => props.font || 28}px;
-`
-
-const WrapperProgress = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 30px;
-  margin-right: 30px;
-  box-shadow: 3px 3px 10px hotpink;
-  border-radius: 20px 4px;
-  overflow: hidden;
-`
-
-const ProgressBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 30px;
-  width: ${props => props.progress || 0}%;
-  background: hotpink;
-  border-radius: 20px 4px;
+  font-size: 28px;
 `
 
 class App extends Component {
   state = {
-    todos: this.load()
+    todos: this.load(),
+    toggleButton: {
+      defaultText: 'Show Done',
+      altText: 'Hide Done',
+      isDefault: false
+    }
   }
 
   render() {
     this.save()
     return (
       <React.Fragment>
-        <section>
-          <h1>ToDo - List</h1>
-          <Ul font={28}>{this.renderOpenTodos()}</Ul>
-          <Counter num={this.countStuff()} />
-          <WrapperProgress>
-            <ProgressBar progress={this.getPercent()}>
-              {this.getPercent() || 0}%
-            </ProgressBar>
-          </WrapperProgress>
-          <Ul font={28}>{this.renderDoneTodos()}</Ul>
-        </section>
-        <Wrapfoot>
-          <Input handeInput={this.handeInput} />
-        </Wrapfoot>
+        <h1>ToDo - List</h1>
+        <Ul>{this.renderOpenTodos()}</Ul>
+        <ToggleButton
+          data={this.state.toggleButton}
+          doClick={this.handleTglBtnClick}
+        />
+        {this.state.toggleButton.isDefault && (
+          <React.Fragment>
+            <Counter num={this.countStuff()} />{' '}
+            <WrapperProgress>
+              <ProgressBar progress={this.getPercent()}>
+                {this.getPercent() || 0}%
+              </ProgressBar>
+            </WrapperProgress>
+            <Ul>{this.renderDoneTodos()}</Ul>
+            <Wrapfoot>
+              <Input handeInput={this.handeInput} />
+            </Wrapfoot>
+          </React.Fragment>
+        )}
       </React.Fragment>
     )
+  }
+
+  handleTglBtnClick = () => {
+    const { toggleButton } = this.state
+    const newButton = {
+      defaultText: toggleButton.defaultText,
+      altText: toggleButton.altText,
+      isDefault: !toggleButton.isDefault
+    }
+
+    this.setState({
+      toggleButton: newButton
+    })
   }
 
   handeInput = event => {
