@@ -52,11 +52,11 @@ class App extends Component {
               </ProgressBar>
             </WrapperProgress>
             <Ul>{this.renderDoneTodos()}</Ul>
-            <Wrapfoot>
-              <Input handeInput={this.handeInput} />
-            </Wrapfoot>
           </React.Fragment>
         )}
+        <Wrapfoot>
+          <Input handeInput={this.handeInput} />
+        </Wrapfoot>
       </React.Fragment>
     )
   }
