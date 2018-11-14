@@ -63,16 +63,13 @@ class App extends Component {
   }
 
   handeInput = event => {
-    if (event.key === 'Enter') {
-      const newEntry = [
-        { text: event.target.value, done: false, id: uid() },
-        ...this.state.todos
-      ]
-      this.setState({
-        todos: newEntry
-      })
-      event.target.value = ''
-    }
+    const newEntry = [
+      { text: event.target.value, done: false, id: uid() },
+      ...this.state.todos
+    ]
+    this.setState({
+      todos: newEntry
+    })
   }
 
   toggleDone = id => {

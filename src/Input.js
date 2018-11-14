@@ -23,13 +23,18 @@ const WrapperInp = styled.input`
 `
 
 export default class Input extends Component {
+  clearInput(event) {
+    event.target.value = ''
+  }
   render() {
     return (
       <WrapperInp
         type="text"
         placeholder="Add ToDo"
-        onKeyUp={evt => {
-          evt.target.value && this.props.handeInput(evt)
+        onKeyUp={event => {
+          event.key === 'Enter' &&
+            ((event.target.value && this.props.handeInput(event)) ||
+              this.clearInput(event))
         }}
       />
     )
