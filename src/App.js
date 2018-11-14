@@ -21,6 +21,28 @@ const Ul = styled.ul`
   font-size: ${props => props.font || 28}px;
 `
 
+const WrapperProgress = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  box-shadow: 3px 3px 10px hotpink;
+`
+
+const ProgressBar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 30px;
+  width: ${props => props.progress || 0}%;
+  background: deeppink;
+`
+
 class App extends Component {
   state = {
     todos: this.load()
@@ -34,6 +56,11 @@ class App extends Component {
           <h1>ToDo - List</h1>
           <Ul font={28}>{this.renderOpenTodos()}</Ul>
           <Counter num={this.countStuff()} />
+          <WrapperProgress>
+            <ProgressBar progress={this.getPercent()}>
+              {this.getPercent() || 0}%
+            </ProgressBar>
+          </WrapperProgress>
           <Ul font={28}>{this.renderDoneTodos()}</Ul>
         </section>
         <Wrapfoot>
@@ -76,6 +103,14 @@ class App extends Component {
     this.setState({
       todos: delTodo
     })
+  }
+
+  getPercent() {
+    return Math.round(
+      (this.state.todos.filter(item => item.done).length /
+        this.state.todos.length) *
+        100
+    )
   }
 
   renderOpenTodos() {
