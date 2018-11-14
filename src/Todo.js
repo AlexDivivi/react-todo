@@ -13,7 +13,7 @@ const WrapTodo = styled.div`
   }
 `
 
-const Deletebtn = styled.button`
+const DeleteButton = styled.button`
   border: 0;
   background: hotpink;
   height: 25px;
@@ -34,7 +34,7 @@ export default class Todo extends Component {
         >
           {text}
         </li>
-        <Deletebtn onClick={() => onDelete(id)}>X</Deletebtn>
+        <DeleteButton onClick={() => onDelete(id)}>X</DeleteButton>
       </WrapTodo>
     )
   }

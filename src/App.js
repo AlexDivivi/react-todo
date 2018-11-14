@@ -6,21 +6,12 @@ import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
 import ToggleButton from './ToggleButton'
-import { WrapperProgress, ProgressBar } from './Progressbar'
+import Progessbar from './Progressbar'
 
 const Wrapfoot = styled.footer`
   display: flex;
   margin-top: 15px;
   justify-content: center;
-`
-
-const Ul = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  padding-left: 30px;
-  padding-right: 30px;
-  font-size: 28px;
 `
 
 class App extends Component {
@@ -36,10 +27,11 @@ class App extends Component {
   render() {
     this.save()
     const { isDefault } = this.state.toggleButton
+    this.doneTodos = this.state.todos.filter(item => item.done).length
     return (
       <React.Fragment>
         <h1>ToDo - List</h1>
-        <Ul>{this.renderOpenTodos()}</Ul>
+        <ul>{this.renderOpenTodos()}</ul>
         <ToggleButton
           data={this.state.toggleButton}
           doClick={this.handleToggleButtonClick}
@@ -47,12 +39,8 @@ class App extends Component {
         {isDefault && (
           <React.Fragment>
             <Counter num={this.countStuff()} />{' '}
-            <WrapperProgress>
-              <ProgressBar progress={this.getPercent()}>
-                {this.getPercent() || 0}%
-              </ProgressBar>
-            </WrapperProgress>
-            <Ul>{this.renderDoneTodos()}</Ul>
+            {this.doneTodos > 0 && <Progessbar progress={this.getPercent()} />}
+            <ul>{this.renderDoneTodos()}</ul>
           </React.Fragment>
         )}
         <Wrapfoot>
@@ -110,11 +98,7 @@ class App extends Component {
   }
 
   getPercent() {
-    return Math.round(
-      (this.state.todos.filter(item => item.done).length /
-        this.state.todos.length) *
-        100
-    )
+    return Math.round((this.doneTodos / this.state.todos.length) * 100)
   }
 
   renderOpenTodos() {

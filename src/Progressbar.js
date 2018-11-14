@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import React, { Component } from 'react'
 
-export const WrapperProgress = styled.div`
+const WrapperProgress = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,13 +15,23 @@ export const WrapperProgress = styled.div`
   overflow: hidden;
 `
 
-export const ProgressBar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  height: 30px;
-  width: ${props => props.progress || 0}%;
-  background: hotpink;
-  border-radius: 20px 4px;
-`
+export default class Progressbar extends Component {
+  render() {
+    const progress = this.props.progress
+    const ProgressBar = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      height: 30px;
+      width: ${progress || 0}%;
+      background: hotpink;
+      border-radius: 20px 4px;
+    `
+    return (
+      <WrapperProgress>
+        <ProgressBar>{progress}%</ProgressBar>
+      </WrapperProgress>
+    )
+  }
+}

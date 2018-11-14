@@ -1,20 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createGlobalStyle } from 'styled-components'
 import App from './App'
+import { GlobalStyle } from './GlobalStyle'
 import * as serviceWorker from './serviceWorker'
-
-const GlobalStyle = createGlobalStyle`
-body {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
-h1 {
-  font-size: 40px;
-}
-`
 
 ReactDOM.render(
   <React.Fragment>
