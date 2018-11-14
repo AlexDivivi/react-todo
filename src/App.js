@@ -42,7 +42,7 @@ const ProgressBar = styled.div`
   color: white;
   height: 30px;
   width: ${props => props.progress || 0}%;
-  background: deeppink;
+  background: hotpink;
   border-radius: 20px 4px;
 `
 
