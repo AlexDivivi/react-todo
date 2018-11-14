@@ -2,9 +2,8 @@ import React from 'react'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { linkTo } from '@storybook/addon-links'
 
-import { Welcome } from '@storybook/react/demo'
+import { text, boolean, number } from '@storybook/addon-knobs'
 
 import Todo from '../Todo'
 import Counter from '../Counter'
@@ -12,16 +11,12 @@ import Input from '../Input'
 import ToggleButton from '../ToggleButton'
 import Progressbar from '../Progressbar'
 
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
-))
-
 storiesOf('Todo', module)
   .add('with text', () => (
     <ul>
       <Todo
-        text="Hello Word"
-        done={false}
+        text={text('Text', 'Hello World')}
+        done={boolean('done', false)}
         onDelete={action('delete')}
         toggleDone={action('toggle')}
       />
@@ -30,15 +25,17 @@ storiesOf('Todo', module)
   .add('in done state', () => (
     <ul>
       <Todo
-        text="Hello Word"
-        done={true}
+        text={text('Text', 'Hello World')}
+        done={boolean('done', true)}
         onDelete={action('delete')}
         toggleDone={action('toggle')}
       />
     </ul>
   ))
 
-storiesOf('Counter', module).add('done number', () => <Counter num={8} />)
+storiesOf('Counter', module).add('done number', () => (
+  <Counter num={number('Done', 8)} />
+))
 
 storiesOf('Input', module).add('default state', () => (
   <Input handeInput={action('Entered value')} />
@@ -66,8 +63,6 @@ storiesOf('ToggleButton', module)
     />
   ))
 
-storiesOf('Progressbar', module)
-  .add('with 0%', () => <Progressbar progress={0} />)
-  .add('with 33%', () => <Progressbar progress={33} />)
-  .add('with 75%', () => <Progressbar progress={75} />)
-  .add('with 100%', () => <Progressbar progress={100} />)
+storiesOf('Progressbar', module).add('with 75%', () => (
+  <Progressbar progress={number('Percent', 75)} />
+))
