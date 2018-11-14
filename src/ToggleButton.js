@@ -9,6 +9,11 @@ const Btn = styled.button`
   box-shadow: 3px 3px 10px hotpink;
   background: whitesmoke;
   margin-top: 25px;
+
+  :focus {
+    outline: none;
+    box-shadow: 0 0 3px 3px orange;
+  }
 `
 
 export default class ToggleButton extends Component {
