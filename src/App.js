@@ -31,6 +31,8 @@ const WrapperProgress = styled.div`
   margin-left: 30px;
   margin-right: 30px;
   box-shadow: 3px 3px 10px hotpink;
+  border-radius: 20px 4px;
+  overflow: hidden;
 `
 
 const ProgressBar = styled.div`
@@ -41,6 +43,7 @@ const ProgressBar = styled.div`
   height: 30px;
   width: ${props => props.progress || 0}%;
   background: deeppink;
+  border-radius: 20px 4px;
 `
 
 class App extends Component {
