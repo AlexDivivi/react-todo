@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import uid from 'uid'
 import styled from 'styled-components'
 
-import Todo from './Todo'
-import Input from './Input'
-import Counter from './Counter'
-import ToggleButton from './ToggleButton'
-import Progessbar from './Progressbar'
+import Todo from './components/Todo'
+import Input from './components/Input'
+import Counter from './components/Counter'
+import ToggleButton from './components/ToggleButton'
+import Progessbar from './components/Progressbar'
 
 const Wrapfoot = styled.footer`
   display: flex;

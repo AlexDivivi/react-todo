@@ -5,11 +5,11 @@ import { action } from '@storybook/addon-actions'
 
 import { text, boolean, number } from '@storybook/addon-knobs'
 
-import Todo from '../Todo'
-import Counter from '../Counter'
-import Input from '../Input'
-import ToggleButton from '../ToggleButton'
-import Progressbar from '../Progressbar'
+import Todo from '../components/Todo'
+import Counter from '../components/Counter'
+import Input from '../components/Input'
+import ToggleButton from '../components/ToggleButton'
+import Progressbar from '../components/Progressbar'
 
 storiesOf('Todo', module)
   .add('with text', () => (
