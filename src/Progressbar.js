@@ -24,7 +24,7 @@ export default class Progressbar extends Component {
       align-items: center;
       color: white;
       height: 30px;
-      width: ${progress || 0}%;
+      width: ${progress < 3 ? progress + 1.5 : progress || 0}%;
       background: hotpink;
       border-radius: 20px 4px;
     `
