@@ -33,8 +33,8 @@ export default class App extends Component {
       <Router>
         <Grid>
           <div>
-            <Route path="/" exact component={Home} />
-            <Route path="/config/" component={Config} />
+            <Route path="/" exact render={() => <Home />} />
+            <Route path="/config/" render={() => <Config />} />
           </div>
           <Cookie>
             <CookieBox>
