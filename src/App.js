@@ -1,139 +1,47 @@
 import React, { Component } from 'react'
-import uid from 'uid'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Home from './Home'
+import Config from './Config'
 
-import Todo from './components/Todo'
-import Input from './components/Input'
-import Counter from './components/Counter'
-import ToggleButton from './components/ToggleButton'
-import Progessbar from './components/Progressbar'
-
-const Wrapfoot = styled.footer`
+const Grid = styled.div`
+  display: grid;
+  grid-template-rows: auto 70px;
+  height: 100vh;
+`
+const Cookie = styled.nav`
   display: flex;
-  margin-top: 15px;
+  justify-content: space-between;
+  font-size: 20px;
+`
+const CookieBox = styled.div`
+  height: 100%;
+  background: whitesmoke;
+  width: 50%;
+  display: flex;
   justify-content: center;
+  align-items: center;
 `
 
-class App extends Component {
-  state = {
-    todos: this.load(),
-    toggleButton: {
-      defaultText: 'Show Done',
-      altText: 'Hide Done',
-      isDefault: false
-    }
-  }
-
+export default class App extends Component {
   render() {
-    this.save()
-    const { isDefault } = this.state.toggleButton
-    this.doneTodos = this.state.todos.filter(item => item.done).length
     return (
-      <React.Fragment>
-        <h1>ToDo - List</h1>
-        <ul>{this.renderOpenTodos()}</ul>
-        <ToggleButton
-          data={this.state.toggleButton}
-          doClick={this.handleToggleButtonClick}
-        />
-        {isDefault && (
-          <React.Fragment>
-            <Counter num={this.countStuff()} />{' '}
-            {this.doneTodos > 0 && <Progessbar progress={this.getPercent()} />}
-            <ul>{this.renderDoneTodos()}</ul>
-          </React.Fragment>
-        )}
-        <Wrapfoot>
-          <Input handeInput={this.handeInput} />
-        </Wrapfoot>
-      </React.Fragment>
+      <Router>
+        <Grid>
+          <div>
+            <Route path="/" exact component={Home} />
+            <Route path="/config/" component={Config} />
+          </div>
+          <Cookie>
+            <CookieBox>
+              <Link to="/">Home</Link>
+            </CookieBox>
+            <CookieBox>
+              <Link to="/Config/">Config</Link>
+            </CookieBox>
+          </Cookie>
+        </Grid>
+      </Router>
     )
-  }
-
-  handleToggleButtonClick = () => {
-    const { toggleButton } = this.state
-    const newButton = {
-      ...toggleButton,
-      isDefault: !toggleButton.isDefault
-    }
-
-    this.setState({
-      toggleButton: newButton
-    })
-  }
-
-  handeInput = event => {
-    const newEntry = [
-      { text: event.target.value, done: false, id: uid() },
-      ...this.state.todos
-    ]
-    this.setState({
-      todos: newEntry
-    })
-  }
-
-  toggleDone = id => {
-    const { todos } = this.state
-    const index = todos.findIndex(todo => todo.id === id)
-    const newTodos = [
-      ...todos.slice(0, index),
-      { ...todos[index], done: !todos[index].done },
-      ...todos.slice(index + 1)
-    ]
-    this.setState({
-      todos: newTodos
-    })
-  }
-
-  onDelete = id => {
-    const { todos } = this.state
-    const index = todos.findIndex(todo => todo.id === id)
-    const delTodo = [...todos.slice(0, index), ...todos.slice(index + 1)]
-    this.setState({
-      todos: delTodo
-    })
-  }
-
-  getPercent() {
-    return Math.round((this.doneTodos / this.state.todos.length) * 100)
-  }
-
-  renderOpenTodos() {
-    return this.state.todos.filter(item => !item.done).map(this.renderTodo())
-  }
-
-  renderDoneTodos() {
-    return this.state.todos.filter(item => item.done).map(this.renderTodo())
-  }
-
-  renderTodo() {
-    return todo => (
-      <Todo
-        key={todo.id}
-        id={todo.id}
-        text={todo.text}
-        done={todo.done}
-        toggleDone={this.toggleDone}
-        onDelete={this.onDelete}
-      />
-    )
-  }
-
-  countStuff() {
-    return this.state.todos.filter(item => item.done).length
-  }
-
-  save() {
-    localStorage.setItem('todo-app--todos', JSON.stringify(this.state.todos))
-  }
-
-  load() {
-    try {
-      return JSON.parse(localStorage.getItem('todo-app--todos')) || []
-    } catch (err) {
-      return []
-    }
   }
 }
-
-export default App
