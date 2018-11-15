@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import Home from './Home'
 import Config from './Config'
 
 const Grid = styled.div`
   display: grid;
-  grid-template-rows: auto 70px;
+  grid-template-rows: auto 55px;
   height: 100vh;
 `
 const Cookie = styled.nav`
@@ -16,11 +16,15 @@ const Cookie = styled.nav`
 `
 const CookieBox = styled.div`
   height: 100%;
-  background: whitesmoke;
+  background: hotpink;
   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .active {
+    color: whitesmoke;
+  }
 `
 
 export default class App extends Component {
@@ -34,10 +38,14 @@ export default class App extends Component {
           </div>
           <Cookie>
             <CookieBox>
-              <Link to="/">Home</Link>
+              <NavLink activeClassName="active" exact to="/">
+                Home
+              </NavLink>
             </CookieBox>
             <CookieBox>
-              <Link to="/Config/">Config</Link>
+              <NavLink activeClassName="active" to="/Config/">
+                Config
+              </NavLink>
             </CookieBox>
           </Cookie>
         </Grid>
